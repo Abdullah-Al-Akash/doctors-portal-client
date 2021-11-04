@@ -27,7 +27,7 @@ const Banner = () => {
                                 <Grid container spacing={2}>
                                         <Grid item xs={12} md={6} style={verticalCenter}>
                                                 <Box>
-                                                        <Typography variant="h3" sx={{}}>
+                                                        <Typography variant="h3" sx={{ fontWeight: "bold" }}>
                                                                 Your New Smile <br />
                                                                 From Here
                                                         </Typography>
