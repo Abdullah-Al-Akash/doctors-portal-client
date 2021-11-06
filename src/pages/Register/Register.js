@@ -24,7 +24,7 @@ const Register = () => {
                 <Container>
                         <Grid container spacing={2}>
                                 <Grid item xs={12} md={6}>
-                                        <Typography sx={{ mt: 15, textAlign: 'center', fontWeight: 600 }} variant='h4' gutterBottom>Login</Typography>
+                                        <Typography sx={{ mt: 15, textAlign: 'center', fontWeight: 600 }} variant='h4' gutterBottom>Register</Typography>
                                         <form onSubmit={handleLogin}>
                                                 <TextField
                                                         onChange={handleOnchange}
