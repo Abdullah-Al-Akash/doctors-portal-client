@@ -8,9 +8,11 @@ initializeFirebase();
 const useFirebase = () => {
         const [user, setUser] = useState({});
         const auth = getAuth();
+        const [isLoading, setIsLoading] = useState(true);
 
         // Create New User:
         const register = (email, password) => {
+                setIsLoading(true)
                 createUserWithEmailAndPassword(auth, email, password)
                         .then((userCredential) => {
                                 // Signed in 
@@ -21,11 +23,15 @@ const useFirebase = () => {
                                 const errorCode = error.code;
                                 const errorMessage = error.message;
                                 // ..
-                        });
+                        })
+                        .finally(() => {
+                                setIsLoading(false)
+                        })
         }
 
         // Login User:
         const loginUser = (email, password) => {
+                setIsLoading(true)
                 signInWithEmailAndPassword(auth, email, password)
                         .then((userCredential) => {
                                 // Signed in 
@@ -35,7 +41,10 @@ const useFirebase = () => {
                         .catch((error) => {
                                 const errorCode = error.code;
                                 const errorMessage = error.message;
-                        });
+                        })
+                        .finally(() => {
+                                setIsLoading(false)
+                        })
         }
 
         // Observe User State:
@@ -46,24 +55,30 @@ const useFirebase = () => {
                         } else {
                                 setUser({});
                         }
+                        setIsLoading(false);
                 });
                 return () => unSubscribe;
         }, [])
 
         // LogOut:
         const logOut = () => {
+                setIsLoading(true);
                 signOut(auth).then(() => {
                         // Sign-out successful.
                 }).catch((error) => {
                         // An error happened.
-                });
+                })
+                        .finally(() => {
+                                setIsLoading(false)
+                        })
         }
 
         return {
                 user,
                 register,
-                signOut,
-                loginUser
+                logOut,
+                loginUser,
+                isLoading
         }
 }
 
