@@ -38,7 +38,8 @@ const Navigation = () => {
                                                                                 textDecoration: 'none',
                                                                                 color: 'white'
                                                                         }}
-                                                                        to="/login">
+                                                                        to=""
+                                                                        onClick={logOut}>
                                                                         <Button color="inherit">LogOut</Button>
                                                                 </NavLink>
                                                                 :

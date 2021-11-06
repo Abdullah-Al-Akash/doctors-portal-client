@@ -1,12 +1,13 @@
-import { Button, CircularProgress, Container, Grid, TextField, Typography } from '@mui/material';
+import { Alert, Button, CircularProgress, Container, Grid, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import login from '../../images/login.png';
+import Navigation from '../Shared/Navigation/Navigation';
 
 const Register = () => {
         const [loginData, setLoginData] = useState({});
-        const { register, isLoading } = useAuth()
+        const { register, isLoading, user, authError } = useAuth()
         const handleOnchange = e => {
                 const field = e.target.name;
                 const value = e.target.value;
@@ -24,61 +25,73 @@ const Register = () => {
                 register(loginData.email, loginData.password);
         }
         return (
-                <Container>
-                        <Grid container spacing={2}>
-                                <Grid item xs={12} md={6}>
-                                        <Typography sx={{ mt: 15, textAlign: 'center', fontWeight: 600 }} variant='h4' gutterBottom>Register</Typography>
-                                        {
-                                                !isLoading &&
-                                                <form onSubmit={handleLogin}>
-                                                        <TextField
-                                                                onChange={handleOnchange}
-                                                                sx={{ width: '80%', m: 2 }}
-                                                                id="standard-basic"
-                                                                label="Your Email"
-                                                                name="email"
-                                                                variant="standard" />
-                                                        <TextField
-                                                                onChange={handleOnchange}
-                                                                sx={{ width: '80%', m: 2 }}
-                                                                id="standard-basic"
-                                                                type="password"
-                                                                name="password"
-                                                                label="Your Password"
-                                                                variant="standard" />
-                                                        <TextField
-                                                                onChange={handleOnchange}
-                                                                sx={{ width: '80%', m: 2 }}
-                                                                id="standard-basic"
-                                                                type="password"
-                                                                name="password2"
-                                                                label="Re-Type Your Password"
-                                                                variant="standard" />
-                                                        <Button
-                                                                type="submit"
-                                                                sx={{ width: '80%', m: 2 }}
-                                                                variant="contained">
-                                                                Register
-                                                        </Button>
-                                                        <Typography variant="h6"
-                                                                sx={{ width: '80%', m: 2 }}
-                                                        >Already have an account?
-                                                                <NavLink style={{ marginLeft: '5px' }} to="/login">
-                                                                        Login Here
-                                                                </NavLink>
-                                                        </Typography>
+                <>
+                        <Navigation />
+                        <Container>
+                                <Grid container spacing={2}>
+                                        <Grid item xs={12} md={6}>
+                                                <Typography sx={{ mt: 15, textAlign: 'center', fontWeight: 600 }} variant='h4' gutterBottom>Register</Typography>
+                                                {
+                                                        !isLoading &&
+                                                        <form onSubmit={handleLogin}>
+                                                                <TextField
+                                                                        onChange={handleOnchange}
+                                                                        sx={{ width: '80%', m: 2 }}
+                                                                        id="standard-basic"
+                                                                        label="Your Email"
+                                                                        name="email"
+                                                                        variant="standard" />
+                                                                <TextField
+                                                                        onChange={handleOnchange}
+                                                                        sx={{ width: '80%', m: 2 }}
+                                                                        id="standard-basic"
+                                                                        type="password"
+                                                                        name="password"
+                                                                        label="Your Password"
+                                                                        variant="standard" />
+                                                                <TextField
+                                                                        onChange={handleOnchange}
+                                                                        sx={{ width: '80%', m: 2 }}
+                                                                        id="standard-basic"
+                                                                        type="password"
+                                                                        name="password2"
+                                                                        label="Re-Type Your Password"
+                                                                        variant="standard" />
+                                                                <Button
+                                                                        type="submit"
+                                                                        sx={{ width: '80%', m: 2 }}
+                                                                        variant="contained">
+                                                                        Register
+                                                                </Button>
+                                                                <Typography variant="h6"
+                                                                        sx={{ width: '80%', m: 2 }}
+                                                                >Already have an account?
+                                                                        <NavLink style={{ marginLeft: '5px' }} to="/login">
+                                                                                Login Here
+                                                                        </NavLink>
+                                                                </Typography>
 
-                                                </form>}
-                                        {
-                                                isLoading &&
-                                                <CircularProgress />
-                                        }
+                                                        </form>}
+                                                {
+                                                        isLoading &&
+                                                        <CircularProgress />
+                                                }
+                                                {
+                                                        user?.email &&
+                                                        <Alert severity="success">User Create Successfully</Alert>
+                                                }
+                                                {
+                                                        authError &&
+                                                        <Alert severity="error">{authError}</Alert>
+
+                                                }
+                                        </Grid>
+                                        <Grid item xs={12} md={6}>
+                                                <img style={{ width: '100%' }} src={login} alt="" />
+                                        </Grid>
                                 </Grid>
-                                <Grid item xs={12} md={6}>
-                                        <img style={{ width: '100%' }} src={login} alt="" />
-                                </Grid>
-                        </Grid>
-                </Container >
+                        </Container >
+                </>
         );
 };
 
