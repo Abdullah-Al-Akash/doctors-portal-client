@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import initializeFirebase from "../pages/Firebase/firebase.init";
-import { getAuth, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signOut, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 
 
 // Initialize Firebase App:
@@ -21,6 +21,20 @@ const useFirebase = () => {
                                 const errorCode = error.code;
                                 const errorMessage = error.message;
                                 // ..
+                        });
+        }
+
+        // Login User:
+        const loginUser = (email, password) => {
+                signInWithEmailAndPassword(auth, email, password)
+                        .then((userCredential) => {
+                                // Signed in 
+                                const user = userCredential.user;
+                                // ...
+                        })
+                        .catch((error) => {
+                                const errorCode = error.code;
+                                const errorMessage = error.message;
                         });
         }
 
@@ -49,7 +63,7 @@ const useFirebase = () => {
                 user,
                 register,
                 signOut,
-
+                loginUser
         }
 }
 
