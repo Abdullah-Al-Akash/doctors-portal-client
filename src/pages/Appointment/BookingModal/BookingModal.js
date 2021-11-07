@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
+import useAuth from '../../../hooks/useAuth';
 
 const style = {
         position: 'absolute',
@@ -23,10 +24,11 @@ const BookingModal = ({ open, handleClose, booking, date }) => {
         const handleBookingSubmit = e => {
                 e.preventDefault();
                 alert("Submitting");
-
                 // Collect Data:
                 handleClose();
         }
+
+        const { user } = useAuth();
         return (
                 <Modal
                         open={open}
@@ -41,31 +43,34 @@ const BookingModal = ({ open, handleClose, booking, date }) => {
                                 <form onSubmit={handleBookingSubmit}>
                                         <TextField
                                                 sx={{ m: 1, width: '95%' }}
-                                                disabled="disabled"
                                                 id="outlined-size-small"
                                                 defaultValue={time}
                                                 size="small"
+                                                inputProps={{ readOnly: true }}
                                         />
                                         <TextField
                                                 sx={{ m: 1, width: '95%' }}
 
                                                 id="outlined-size-small"
                                                 placeholder="Your Name"
+                                                defaultValue={user.displayName}
                                                 size="small"
+                                                inputProps={{ readOnly: true }}
                                         />
                                         <TextField
                                                 sx={{ m: 1, width: '95%' }}
-
                                                 id="outlined-size-small"
                                                 placeholder="Your Email"
+                                                defaultValue={user.email}
                                                 size="small"
+                                                inputProps={{ readOnly: true }}
                                         />
                                         <TextField
                                                 sx={{ m: 1, width: '95%' }}
-                                                disabled
                                                 id="outlined-size-small"
                                                 defaultValue={date.toDateString()}
                                                 size="small"
+                                                inputProps={{ readOnly: true }}
                                         />
                                         <Button type="submit" variant="contained">Submit</Button>
                                 </form>

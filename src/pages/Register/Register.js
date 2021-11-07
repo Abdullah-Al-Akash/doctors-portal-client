@@ -1,6 +1,6 @@
 import { Alert, Button, CircularProgress, Container, Grid, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import login from '../../images/login.png';
 import Navigation from '../Shared/Navigation/Navigation';
@@ -8,7 +8,8 @@ import Navigation from '../Shared/Navigation/Navigation';
 const Register = () => {
         const [loginData, setLoginData] = useState({});
         const { register, isLoading, user, authError } = useAuth()
-        const handleOnchange = e => {
+        const history = useHistory();
+        const handleOnBlur = e => {
                 const field = e.target.name;
                 const value = e.target.value;
                 const newLoginData = { ...loginData };
@@ -22,7 +23,7 @@ const Register = () => {
                         alert('Password did not match');
                         return;
                 }
-                register(loginData.email, loginData.password);
+                register(loginData.email, loginData.password, loginData.name, history);
         }
         return (
                 <>
@@ -35,21 +36,21 @@ const Register = () => {
                                                         !isLoading &&
                                                         <form onSubmit={handleLogin}>
                                                                 <TextField
-                                                                        onChange={handleOnchange}
+                                                                        onBlur={handleOnBlur}
                                                                         sx={{ width: '80%', m: 2 }}
                                                                         id="standard-basic"
                                                                         label="Your Name"
                                                                         name="name"
                                                                         variant="standard" />
                                                                 <TextField
-                                                                        onChange={handleOnchange}
+                                                                        onBlur={handleOnBlur}
                                                                         sx={{ width: '80%', m: 2 }}
                                                                         id="standard-basic"
                                                                         label="Your Email"
                                                                         name="email"
                                                                         variant="standard" />
                                                                 <TextField
-                                                                        onChange={handleOnchange}
+                                                                        onBlur={handleOnBlur}
                                                                         sx={{ width: '80%', m: 2 }}
                                                                         id="standard-basic"
                                                                         type="password"
@@ -57,7 +58,7 @@ const Register = () => {
                                                                         label="Your Password"
                                                                         variant="standard" />
                                                                 <TextField
-                                                                        onChange={handleOnchange}
+                                                                        onBlur={handleOnBlur}
                                                                         sx={{ width: '80%', m: 2 }}
                                                                         id="standard-basic"
                                                                         type="password"

@@ -66,7 +66,9 @@ const Login = () => {
                                                 </form>
                                                 {
                                                         isLoading &&
-                                                        <CircularProgress />
+                                                        <Container styel={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100px', width: '100%' }}>
+                                                                <CircularProgress style={{ display: 'block', }} />
+                                                        </Container>
                                                 }
                                                 {
                                                         user?.email &&
