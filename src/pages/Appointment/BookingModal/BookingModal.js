@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
@@ -18,17 +18,39 @@ const style = {
         p: 4,
 };
 
+
 const BookingModal = ({ open, handleClose, booking, date }) => {
+        const { user } = useAuth();
         const { name, time } = booking;
+
+        // Handle Appointment:
+
+        const initifialAppointmentInfo = { patientName: user.displayName, patientEmail: user.email }
+        const [appointmentInfo, setAppointmentInfo] = useState(initifialAppointmentInfo);
+        const handleOnBlur = e => {
+                const field = e.target.name;
+                const value = e.target.value;
+                const newBookingInfo = { ...appointmentInfo }
+                newBookingInfo[field] = value;
+                setAppointmentInfo(newBookingInfo)
+        }
 
         const handleBookingSubmit = e => {
                 e.preventDefault();
-                alert("Submitting");
                 // Collect Data:
+                const appointment = {
+                        ...appointmentInfo,
+                        serviceName: name,
+                        time,
+                        appointmentDate: date.toLocaleDateString()
+                }
+                console.log(appointment);
+
                 handleClose();
         }
 
-        const { user } = useAuth();
+
+
         return (
                 <Modal
                         open={open}
@@ -50,20 +72,21 @@ const BookingModal = ({ open, handleClose, booking, date }) => {
                                         />
                                         <TextField
                                                 sx={{ m: 1, width: '95%' }}
-
+                                                onBlur={handleOnBlur}
                                                 id="outlined-size-small"
                                                 placeholder="Your Name"
                                                 defaultValue={user.displayName}
+                                                name="patientName"
                                                 size="small"
-                                                inputProps={{ readOnly: true }}
                                         />
                                         <TextField
                                                 sx={{ m: 1, width: '95%' }}
                                                 id="outlined-size-small"
                                                 placeholder="Your Email"
                                                 defaultValue={user.email}
+                                                onBlur={handleOnBlur}
+                                                name="patientEmail"
                                                 size="small"
-                                                inputProps={{ readOnly: true }}
                                         />
                                         <TextField
                                                 sx={{ m: 1, width: '95%' }}
