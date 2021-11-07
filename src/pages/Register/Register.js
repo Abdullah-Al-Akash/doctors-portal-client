@@ -38,6 +38,13 @@ const Register = () => {
                                                                         onChange={handleOnchange}
                                                                         sx={{ width: '80%', m: 2 }}
                                                                         id="standard-basic"
+                                                                        label="Your Name"
+                                                                        name="name"
+                                                                        variant="standard" />
+                                                                <TextField
+                                                                        onChange={handleOnchange}
+                                                                        sx={{ width: '80%', m: 2 }}
+                                                                        id="standard-basic"
                                                                         label="Your Email"
                                                                         name="email"
                                                                         variant="standard" />

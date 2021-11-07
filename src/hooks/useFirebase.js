@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import initializeFirebase from "../pages/Firebase/firebase.init";
-import { getAuth, createUserWithEmailAndPassword, signOut, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signOut, onAuthStateChanged, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 
 // Initialize Firebase App:
@@ -8,6 +8,8 @@ initializeFirebase();
 const useFirebase = () => {
         const [user, setUser] = useState({});
         const auth = getAuth();
+        const googleProvider = new GoogleAuthProvider();
+
         const [isLoading, setIsLoading] = useState(true);
         const [authError, setAuthError] = useState('');
 
@@ -28,6 +30,25 @@ const useFirebase = () => {
                         .finally(() => {
                                 setIsLoading(false)
                         })
+        }
+
+        // Sign With  Using Google:
+        const signinWithGoogle = (location, history) => {
+                setIsLoading(true)
+                signInWithPopup(auth, googleProvider)
+                        .then((result) => {
+                                // This gives you a Google Access Token. You can use it to access the Google API.
+                                const credential = GoogleAuthProvider.credentialFromResult(result);
+                                const token = credential.accessToken;
+                                // The signed-in user info.
+                                const user = result.user;
+                        }).catch((error) => {
+                                const errorCode = error.code;
+                                setAuthError(error.message);
+                        })
+                        .finally(() => {
+                                setIsLoading(false)
+                        });
         }
 
         // Login User:
@@ -81,7 +102,8 @@ const useFirebase = () => {
                 logOut,
                 loginUser,
                 isLoading,
-                authError
+                authError,
+                signinWithGoogle
 
         }
 }
