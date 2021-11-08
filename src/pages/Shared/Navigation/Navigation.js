@@ -33,15 +33,25 @@ const Navigation = () => {
                                                 </Link>
                                                 {
                                                         user?.email ?
-                                                                <NavLink
-                                                                        style={{
-                                                                                textDecoration: 'none',
-                                                                                color: 'white'
-                                                                        }}
-                                                                        to=""
-                                                                        onClick={logOut}>
-                                                                        <Button color="inherit">LogOut</Button>
-                                                                </NavLink>
+                                                                <Box>
+                                                                        <NavLink
+                                                                                style={{
+                                                                                        textDecoration: 'none',
+                                                                                        color: 'white'
+                                                                                }}
+                                                                                to="/dashboard">
+                                                                                <Button color="inherit">Dashboard</Button>
+                                                                        </NavLink>
+                                                                        <NavLink
+                                                                                style={{
+                                                                                        textDecoration: 'none',
+                                                                                        color: 'white'
+                                                                                }}
+                                                                                to=""
+                                                                                onClick={logOut}>
+                                                                                <Button color="inherit">LogOut</Button>
+                                                                        </NavLink>
+                                                                </Box>
                                                                 :
                                                                 <NavLink
                                                                         style={{
