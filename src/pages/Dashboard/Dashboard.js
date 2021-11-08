@@ -15,6 +15,9 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import { Grid } from '@mui/material';
+import Calender from '../Shared/Calender/Calender'
+import Appointments from './Appointments/Appointments';
 
 const drawerWidth = 240;
 
@@ -106,10 +109,18 @@ function Dashboard(props) {
                                 sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
                         >
                                 <Toolbar />
-                                <Typography paragraph>
-                                        Content Here
-                                </Typography>
+                                {/* DashBoard Items: */}
+                                <Grid container spacing={2}>
+                                        <Grid item xs={6} md={6}>
+                                                <Calender />
+                                        </Grid>
+                                        <Grid item xs={6} md={6}>
+                                                <Appointments />
+                                        </Grid>
+                                </Grid>
                         </Box>
+
+
                 </Box>
         );
 }
