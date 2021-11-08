@@ -15,15 +15,17 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { Grid } from '@mui/material';
+import { Button, Grid } from '@mui/material';
 import Calender from '../Shared/Calender/Calender'
 import Appointments from './Appointments/Appointments';
+import { NavLink } from 'react-router-dom';
 
 const drawerWidth = 240;
 
 function Dashboard(props) {
         const { window } = props;
         const [mobileOpen, setMobileOpen] = React.useState(false);
+        const [date, setDate] = React.useState(new Date());
 
         const handleDrawerToggle = () => {
                 setMobileOpen(!mobileOpen);
@@ -33,6 +35,14 @@ function Dashboard(props) {
                 <div>
                         <Toolbar />
                         <Divider />
+                        <NavLink
+                                style={{
+                                        textDecoration: 'none',
+                                        color: 'black'
+                                }}
+                                to="/appointment">
+                                <Button color="inherit">Appointment</Button>
+                        </NavLink>
                         <List>
                                 {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
                                         <ListItem button key={text}>
@@ -112,10 +122,18 @@ function Dashboard(props) {
                                 {/* DashBoard Items: */}
                                 <Grid container spacing={2}>
                                         <Grid item xs={6} md={6}>
-                                                <Calender />
+                                                <Calender
+                                                        date={date}
+                                                        setDate={setDate}
+                                                ></Calender>
                                         </Grid>
                                         <Grid item xs={6} md={6}>
-                                                <Appointments />
+                                                <Appointments
+                                                        date={date}
+                                                        setDate={setDate}
+                                                >
+
+                                                </Appointments>
                                         </Grid>
                                 </Grid>
                         </Box>
